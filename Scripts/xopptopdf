@@ -1,0 +1,9 @@
+#!/bin/zsh
+# will iterate through dir if no arg is given
+if [ $# -eq 0 ]
+then
+	for file in *.xopp; do echo Processing $file; xournalpp -p "${file%.*}"_export.pdf $file; done
+else
+	var=$1
+	xournalpp -p "${var%.*}"_export.pdf $1
+fi

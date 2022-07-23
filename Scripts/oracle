@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+fortune | cowsay -f "${1:-tux}" | lolcat

@@ -1,0 +1,157 @@
+# Created by newuser for 5.8
+
+#          _
+#  _______| |__  _ __ ___
+# |_  / __| '_ \| '__/ __|
+#  / /\__ | | | | | | (__
+# /___|___|_| |_|_|  \___|
+
+###---MISCELANEOUS---###
+
+pfetch
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+
+###---ZSH CONFIGURATION---###
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.cache/zsh/history
+HISTSIZE=1000
+SAVEHIST=10000
+setopt appendhistory autocd notify
+unsetopt beep
+# End of lines configured by zsh-newuser-install
+
+# Command completion
+autoload -Uz compinit
+compinit
+# Autocompletion with an arrow-key driven interface
+zstyle ':completion:*' menu select
+# Autocompletion of command line switches for aliases
+setopt COMPLETE_ALIASES
+# Autocompletion of privileged environments in privileged commands
+zstyle ':completion::complete:*' gain-privileges 1
+# Autocompletion with dotfiles
+_comp_options+=(globdots)
+# Auto complete with case insenstivity
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+
+
+# History search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
+[[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
+
+
+
+# Rehash, in order to include new packages in the completion
+zstyle ':completion:*' rehash true
+
+
+# Automatically cd into typed directory
+setopt autocd
+
+
+# Vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Use ranger to switch directories and bind it to ctrl-o
+rangercd () {
+    tmp="$(mktemp)"
+    ranger --choosedir="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp" >/dev/null
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+
+
+
+###---KEYBINDINGS---###
+
+bindkey -s '^r' 'rangercd\n'
+bindkey -s '^n' 'newsboat\n'
+
+
+
+###---COLORS---###
+
+# Load colors
+autoload -U colors && colors
+# Change prompt
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
+
+
+# appĺy colors
+export LESS=-R
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # reset bold/blink
+export LESS_TERMCAP_so=$'\E[01;44;33m' # begin reverse video
+export LESS_TERMCAP_se=$'\E[0m'        # reset reverse video
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+export LESS_TERMCAP_ue=$'\E[0m'        # reset underline
+
+alias diff='diff --color=auto'
+alias grep='grep --color=auto'
+alias ip='ip -color=auto'
+alias ls='ls --color=auto'
+
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
+
+
+
+###---ALIASES---###
+alias trash="cd ~/.local/share/Trash/files/"
+alias usb="cd /media/"
+alias scripts="cd ~/.local/bin/Scripts/"
+
+alias vimconf="nvim ~/.config/nvim/init.vim"
+alias i3conf="nvim ~/.config/i3/config"
+alias zshconf="nvim ~/.config/zsh/.zshrc"
+alias polybarconf="nvim ~/.config/polybar/config"
+alias rangerconf="nvim ~/.config/ranger/rc.conf"
+
+
+###---PLUGINS---###
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

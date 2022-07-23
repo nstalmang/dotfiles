@@ -1,0 +1,65 @@
+%In vim, :LLPStartPreview for .pdf
+
+\documentclass[a4paper, 12pt, titlepage]{article}
+\usepackage[margin=1in]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\inputencoding{latin1}
+\inputencoding{utf8}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{$HOME/Documents/Computing/LaTeX/Bibliography.bib}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{index}
+\usepackage{cgloss4e}
+
+% \newcommand{\ }{}
+
+\geometry{
+    a4paper,
+    total={170mm,257mm},
+    left=2cm,
+    top=2cm,
+}
+
+\setlength{\parindent}{0.5cm}
+\setlength{\parskip}{0.5em}
+\linespread{1.15}
+
+\begin{document}
+\pagenumbering{arabic}
+
+\begin{titlepage}
+\title{}
+\author{}
+\date{}
+\maketitle
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{}
+\subsection{}
+
+
+\subsection{}
+
+
+\section{}
+\subsection{}
+\subsection{}
+
+
+
+
+\newpage
+
+\printbibliography
+
+\end{document}

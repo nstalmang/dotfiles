@@ -1,0 +1,3 @@
+#!/bin/zsh
+var=$1
+pandoc -V geometry:margin=1in ${var%.*}.md -o ${var%.*}.pdf

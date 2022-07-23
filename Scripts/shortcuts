@@ -1,0 +1,78 @@
+#!/bin/zsh
+
+# check for arguments
+if [[ $# != 1 ]]; then
+	echo "No arguments were given!"
+	exit
+fi
+
+case $1 in
+	"i3")
+		echo "\n### i3 WM ###\n"
+		echo "Lockscreen:\twin+shift+x\n"
+		echo "Screenshots:\twin+shift+p\n"
+		echo "Vertical split:\twin+v\n"
+		echo "Horizontal split:\twin+shift+v\n"
+		echo "Full screen:\twin+f\n"
+		echo "Toggle split:\twin+e\n"
+		echo "Stacked windows:\twin+s\n"
+		echo "Tabbed windows:\twin+w\n";;
+
+	"zsh")
+		echo "\n### ZSH ALIASES ###\n"
+		echo "trash, usb, script\n";;
+
+	"ranger")
+		echo "\n### RANGER ###\n"
+		echo "Go to trash:\tbg\n"
+		echo "Empty trash:\tbe\n"
+		echo "Tex Artículo:\txa\n"
+		echo "Tex Tarea:\txt\n"
+		echo "Tex Chino:\txc\n";;
+
+	"vim")
+		echo "\n### VIM ###\n"
+		echo "Nerd Tree:\tctrl+n\n"
+		echo "Codedark CS:\tF5\n"
+		echo "Default CS:\tF6\n"
+		echo
+		echo "Spell checking:\t'1z=' to get the first recommendation\n\t\t'[s' go back one word\n\t\t']s' go to next word\n\t\t'z=' get a list of corrections";;
+
+	"latex")
+		echo "\n### VIM-LATEX ###\n"
+		echo "LLP preview:\tF4\n"
+
+		echo "\n\tFORMAT\n"
+		echo "Bold:\t\t;b\n"
+		echo "Italics:\t;i\n"
+		echo "Underline:\t;u\n"
+
+		echo "\n\tPAGES\n"
+		echo "New page:\t;np\n"
+
+		echo "\n\tCITES\n"
+		echo "Text cite:\t\t;tc\n"
+		echo "Parenthesis cite:\t;pc\n"
+
+		echo "\n\tLISTS\n"
+		echo "List enumerate:\t;le\n"
+		echo "List itemize:\t;li\n"
+		echo "Item:\t\t;it\n"
+
+		echo "\n\tTABBING\n"
+		echo "Tabs structure:\t\t;tb\n"
+		echo "Tabs (up: '\='):\t;tb1\n"
+		echo "Tabs (down: '\>'):\t;tb2\n"
+
+		echo "\n\tPICTURES\n"
+		echo "Include graphics:\t;pic\n"
+		echo "Center graphics:\t;c\n"
+		echo "Figure:\t\t\t;fig\n"
+		echo "Wrap figure:\t\t;wr\n"
+
+		echo "\n\tLABELS\n"
+		echo "Label:\t\t;l\n"
+		echo "Reference:\t;r\n";;
+	*)
+		echo "Not an option! Options are i3, zsh, ranger, vim or latex.";;
+esac

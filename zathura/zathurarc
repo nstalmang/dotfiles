@@ -1,0 +1,9 @@
+# enable copy to clipboard
+set selection-clipboard clipboard
+# common bindings
+map r reload
+map R rotate
+map J zoom in
+map K zoom out
+map i recolor
+map p print

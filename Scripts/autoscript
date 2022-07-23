@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+SCRIPT_FOLDER="$HOME/.local/bin/Scripts"
+SCRIPT_FILE="$SCRIPT_FOLDER/$1"
+
+# check for arguments
+if [[ $# = 0 ]]; then
+	echo "No arguments were given!"
+	exit
+fi
+
+
+# main
+if [[ -f $SCRIPT_FILE ]]; then
+	echo "Script name is already taken!"
+	exit
+else
+	echo "#!/bin/zsh\n" > $SCRIPT_FILE
+	chmod +x $SCRIPT_FILE
+	$EDITOR $SCRIPT_FILE
+fi
